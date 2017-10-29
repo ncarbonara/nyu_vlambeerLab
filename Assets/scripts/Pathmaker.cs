@@ -24,8 +24,10 @@ public class Pathmaker : MonoBehaviour {
 	int counter = 0;
 	public GameObject floorPrefab;
 	public GameObject pathmakerSpherePrefab;
+	Vector3 pathColor;
 
 	void Start() {
+		pathColor = new Vector3 (Random.Range(0, 256), Random.Range(0, 256), Random.Range(0, 256));
 	}
 
 	void Update () {
@@ -53,9 +55,10 @@ public class Pathmaker : MonoBehaviour {
 			} else if (randVal > .9f
 			           && randVal <= 1f) {
 				GameObject pathmakerSphereClone = (GameObject)Instantiate (pathmakerSpherePrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
+				pathColor = new Vector3 (Random.Range(0, 256), Random.Range(0, 256), Random.Range(0, 256));
 			}
 
-			if (globalTileCount < 2500) {
+			if (globalTileCount < 500) {
 				int hallLengthInTiles = Random.Range (3, 6);
 				int tilesCurrentlyInHall = 0;
 
@@ -63,7 +66,7 @@ public class Pathmaker : MonoBehaviour {
 					GameObject floorClone = (GameObject)Instantiate (floorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
 
 					//Gives it a groovy color
-					floorClone.GetComponent<Renderer> ().material.color = Random.ColorHSV ();
+					floorClone.GetComponent<Renderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
 
 					transform.Translate (transform.forward * 5f);
 					globalTileCount++;		//Doesn't currently limit actual tile count in current version of code

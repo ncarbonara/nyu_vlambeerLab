@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Let's us interact with scenes
+using UnityEngine.SceneManagement;
+
 // MAZE PROC GEN LAB
 // all students: complete steps 1-6, as listed in this file
 // optional: if you have extra time, complete the "extra tasks" to do at the very bottom
@@ -50,7 +53,7 @@ public class Pathmaker : MonoBehaviour
 	//kinds of tiles will appear
 	int minRandomTileValue;
 
-	//A randomly determined int that determines if it's more or less likely that normal tiles will appear in the maze
+	//A random int that determines if it's more or less likely that normal tiles will appear in the maze
 	int fewerNormalTiles;
 
 	void Start ()
@@ -97,12 +100,12 @@ public class Pathmaker : MonoBehaviour
 			//Creates a random value to help determine what the pathmaker should do next
 			float randVal = Random.Range (0f, 1f);
 
-			//Turns the pathmaker sphere in one direction
-			if (randVal <= .25f) {
+			//Turns the pathmaker sphere to the right, a more likely result than turning it to the left
+			if (randVal <= .40f) {
 				transform.Rotate (new Vector3 (0, 45, 0));
 
-			//Turns it in the other direction
-			} else if (randVal > .25f
+			//Turns it in the other direction, a less likely result than turning it to the right
+			} else if (randVal > .40f
 			           && randVal <= .5f) {
 				transform.Rotate (new Vector3 (0, -45, 0));
 
@@ -123,7 +126,8 @@ public class Pathmaker : MonoBehaviour
 				//The gameObject that will be filled with a randomly selected type of tile
 				GameObject floorClone;
 
-				//A value used to randomly chooses which new kind of tile to make
+				//A value used to randomly chooses which new kind of tile to make.
+				//minRandomTileValue is randomly selected in start.
 				int randomTileValue = Random.Range(minRandomTileValue, 8);
 
 				//Creates a new floor tile
@@ -163,9 +167,30 @@ public class Pathmaker : MonoBehaviour
 				Debug.Log (counter);
 			}
 
-		//Tells the pathmaker sphere to self-destruct, ensuring that it doesn't create any more paths
+
 		} else {
-			GameObject.Destroy (this.gameObject);
+
+			//"ReloadAssistant" is a special instance of the Pathmaker object created to be able to access counter like a Pathmaker can
+			//and reset counter when the user hits 'R.' This is needed because if the counter is not reset, the first Pathmaker will refuse
+			//to create any tiles
+			if (this.gameObject.name == "ReloadAssistant") {
+
+				//Reloads the game scene with the press of the 'R' key
+				if (Input.GetKey(KeyCode.R)) {
+					counter = 0;
+					SceneManager.LoadScene ("Scene");
+				}
+			}
+
+			//The response for "real" Pathmakers that aren't the reload assistant.
+			//Tells the pathmaker sphere to self-destruct (or rather self-disable so that it can be reenabled on restart), 
+			//ensuring that it doesn't create any more paths.
+			if (this.gameObject.name != "ReloadAssistant") {
+				this.gameObject.SetActive (false);
+			}
+
+
+
 		}
 	}
 

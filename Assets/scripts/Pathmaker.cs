@@ -30,7 +30,7 @@ public class Pathmaker : MonoBehaviour
 	//The floor tile prefab with a heart model on it
 	public GameObject heartFloorPrefab;
 
-	//The floor tile prefab with a arrow model on it
+	//The floor tile prefab with a dynamic model with a bunch of arrows on it
 	public GameObject arrowFloorPrefab;
 
 	//The floor tile prefab with a ladybug model on it
@@ -39,15 +39,9 @@ public class Pathmaker : MonoBehaviour
 	//The prefab for the object that creates additional floor tiles
 	public GameObject pathmakerSpherePrefab;
 
-	//An RGB value for the color paths can have
-	Vector3 pathColor;
-
 	void Start ()
 	{
 
-		//Randomizes the path color at the start
-		pathColor = new Vector3 (Random.Range (0, 256), Random.Range (0, 256), Random.Range (0, 256));
-		//pathColor = Random.ColorHSV();
 	}
 
 	void Update ()
@@ -96,42 +90,35 @@ public class Pathmaker : MonoBehaviour
 			//Starts a loop wherein a series of tiles, a.k.a. a "hall," are produced in a straight line 
 			while (tilesCurrentlyInHall < hallLengthInTiles
 				&& counter < 500) {
-					
-				//A value used to randomly chooses a new kind of tile to make
-				int randomTileValue = Random.Range(1, 6);
 
 				//The gameObject that will be filled with a randomly selected type of tile
 				GameObject floorClone;
+
+				//A value used to randomly chooses which new kind of tile to make
+				int randomTileValue = Random.Range(1, 6);
 
 				//Creates a new floor tile
 				if (randomTileValue == 1
 				    || randomTileValue == 2) {
 				
+					//Makes a regular floor
 					floorClone = (GameObject)Instantiate (normalFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
-
-					//Gives it a groovy color
-					//floorClone.GetComponent<MeshRenderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
 
 				} else if (randomTileValue == 3) {
 
+					//Makes a floor with a heart on it
 					floorClone = (GameObject)Instantiate (heartFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
-				
-					//Gives it a groovy color
-					//floorClone.GetComponent<MeshRenderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
 
 				}  else if (randomTileValue == 4) {
 
+					//Makes a floor with a bunch of dynamic arrows on it
 					floorClone = (GameObject)Instantiate (arrowFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
-				
-					//Gives it a groovy color
-					//floorClone.GetComponent<MeshRenderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
 				
 				} else if (randomTileValue == 5) {
 				
+					//Makes a floor with a ladybug on it
 					floorClone = (GameObject)Instantiate (ladybugFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
 
-					//Gives it a groovy color
-				//	floorClone.GetComponent<MeshRenderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
 			}
 
 				//Moves the pathmaker sphere forward
@@ -140,6 +127,7 @@ public class Pathmaker : MonoBehaviour
 				//Updates the number of tiles currently in the given hall
 				tilesCurrentlyInHall++;
 
+				//Increments the total tile counter
 				counter++;
 				Debug.Log (counter);
 			}

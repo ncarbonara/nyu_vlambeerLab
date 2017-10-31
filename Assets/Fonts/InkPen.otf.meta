@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c3b235a8b3562d74db2a1e280136699b
+timeCreated: 1509422134
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: InkPen
+  fontNames:
+  - InkPen
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

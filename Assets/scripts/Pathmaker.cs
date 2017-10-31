@@ -71,7 +71,7 @@ public class Pathmaker : MonoBehaviour
 				transform.Rotate (new Vector3 (0, -45, 0));
 
 			//Creates a new pathmaker sphere 
-			} else if (randVal > .9f
+			} else if (randVal > .95f
 			           && randVal <= 1f) {
 
 				GameObject pathmakerSphereClone = (GameObject)Instantiate (pathmakerSpherePrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));

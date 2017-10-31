@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: fce7544534013a2418c4c611c0b7ba07
-timeCreated: 1509348321
+guid: c3953a5b50066de4ab52b8dc7be24e1d
+timeCreated: 1509417934
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
@@ -9,24 +9,49 @@ ModelImporter:
     100002: pCube1
     100004: pCube2
     100006: pCube3
-    100008: pCube4
+    100008: pSphere1
+    100010: pSphere2
+    100012: pSphere3
+    100014: pSphere4
+    100016: pSphere5
+    100018: pSphere6
     400000: //RootNode
     400002: pCube1
     400004: pCube2
     400006: pCube3
-    400008: pCube4
+    400008: pSphere1
+    400010: pSphere2
+    400012: pSphere3
+    400014: pSphere4
+    400016: pSphere5
+    400018: pSphere6
     2300000: pCube1
     2300002: pCube2
     2300004: pCube3
-    2300006: pCube4
+    2300006: pSphere1
+    2300008: pSphere2
+    2300010: pSphere3
+    2300012: pSphere4
+    2300014: pSphere5
+    2300016: pSphere6
     3300000: pCube1
     3300002: pCube2
     3300004: pCube3
-    3300006: pCube4
+    3300006: pSphere1
+    3300008: pSphere2
+    3300010: pSphere3
+    3300012: pSphere4
+    3300014: pSphere5
+    3300016: pSphere6
     4300000: pCube1
     4300002: pCube2
     4300004: pCube3
-    4300006: pCube4
+    4300006: pSphere1
+    4300008: pSphere2
+    4300010: pSphere3
+    4300012: pSphere4
+    4300014: pSphere5
+    4300016: pSphere6
     9500000: //RootNode
   materials:
     importMaterials: 1

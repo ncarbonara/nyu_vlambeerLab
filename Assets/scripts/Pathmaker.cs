@@ -22,7 +22,7 @@ public class Pathmaker : MonoBehaviour
 
 
 	//Counts the number of total tiles in the scene across all instances of the pathmaker sphere
-	public static int counter = 0;
+	//public static int counter = 0;
 
 	//The standard, boring floor tile prefab
 	public GameObject normalFloorPrefab;
@@ -39,8 +39,41 @@ public class Pathmaker : MonoBehaviour
 	//The prefab for the object that creates additional floor tiles
 	public GameObject pathmakerSpherePrefab;
 
+	//Counts the number of tiles currently placed in the scene
+	public static int counter = 0;
+
+	//Calculates how long the halls will be in a given branch of the maze
+	int hallLengthInTiles;
+
+	//An int representing the minimum value the code can randomly choose when using a random number to select the
+	//kind of tile to put down next. Changing this value randomly in start changes the likelihood that certain 
+	//kinds of tiles will appear
+	int minRandomTileValue;
+
+	//A randomly determined int that determines if it's more or less likely that normal tiles will appear in the maze
+	int fewerNormalTiles;
+
 	void Start ()
 	{
+
+		//Randomly selects the hall length for this branch of the maze
+		hallLengthInTiles = Random.Range (3, 7);
+
+		//Randomly selects the integer 0 or 1, which is then used to determine if normal tiles are likely to appear
+		fewerNormalTiles = Random.Range(0, 2);
+
+		if (fewerNormalTiles == 0) {
+
+			//Makes normal tiles more likely to appear, because now there are more numbers that can be selected
+			//that represent normal tiles (the numbers 1-4)
+			minRandomTileValue = 1;
+
+		} else if (fewerNormalTiles == 1) {
+
+			//Makes normal tiles less likely to appear, because now there are fewer numbers that can be selected
+			//that represent normal tiles (the number 4)
+			minRandomTileValue = 4;
+		}
 
 	}
 
@@ -78,13 +111,9 @@ public class Pathmaker : MonoBehaviour
 			           && randVal <= 1f) {
 
 				GameObject pathmakerSphereClone = (GameObject)Instantiate (pathmakerSpherePrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
-
-				//Creates a random RGB value to be the color associated with this path
-				//pathColor = new Vector3 (Random.Range (0, 256), Random.Range (0, 256), Random.Range (0, 256));
 			}
 
 			//Determines how long the next hallway should be
-			int hallLengthInTiles = Random.Range (5, 7);
 			int tilesCurrentlyInHall = 0;
 
 			//Starts a loop wherein a series of tiles, a.k.a. a "hall," are produced in a straight line 
@@ -95,26 +124,28 @@ public class Pathmaker : MonoBehaviour
 				GameObject floorClone;
 
 				//A value used to randomly chooses which new kind of tile to make
-				int randomTileValue = Random.Range(1, 6);
+				int randomTileValue = Random.Range(minRandomTileValue, 8);
 
 				//Creates a new floor tile
 				if (randomTileValue == 1
-				    || randomTileValue == 2) {
+				    || randomTileValue == 2
+					|| randomTileValue == 3
+					|| randomTileValue == 4) {
 				
 					//Makes a regular floor
 					floorClone = (GameObject)Instantiate (normalFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
 
-				} else if (randomTileValue == 3) {
+				} else if (randomTileValue == 5) {
 
 					//Makes a floor with a heart on it
 					floorClone = (GameObject)Instantiate (heartFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
 
-				}  else if (randomTileValue == 4) {
+				}  else if (randomTileValue == 6) {
 
 					//Makes a floor with a bunch of dynamic arrows on it
 					floorClone = (GameObject)Instantiate (arrowFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
 				
-				} else if (randomTileValue == 5) {
+				} else if (randomTileValue == 7) {
 				
 					//Makes a floor with a ladybug on it
 					floorClone = (GameObject)Instantiate (ladybugFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));

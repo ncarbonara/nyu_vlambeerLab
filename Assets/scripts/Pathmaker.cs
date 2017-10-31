@@ -24,8 +24,17 @@ public class Pathmaker : MonoBehaviour
 	//Counts the number of total tiles in the scene across all instances of the pathmaker sphere
 	public static int counter = 0;
 
-	//The floor tile prefab
-	public GameObject floorPrefab;
+	//The standard, boring floor tile prefab
+	public GameObject normalFloorPrefab;
+
+	//The floor tile prefab with a heart model on it
+	public GameObject heartFloorPrefab;
+
+	//The floor tile prefab with a arrow model on it
+	public GameObject arrowFloorPrefab;
+
+	//The floor tile prefab with a ladybug model on it
+	public GameObject ladybugFloorPrefab;
 
 	//The prefab for the object that creates additional floor tiles
 	public GameObject pathmakerSpherePrefab;
@@ -88,20 +97,51 @@ public class Pathmaker : MonoBehaviour
 			while (tilesCurrentlyInHall < hallLengthInTiles
 				&& counter < 500) {
 					
-					//Creates a new floor tile
-					GameObject floorClone = (GameObject)Instantiate (floorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
+				//A value used to randomly chooses a new kind of tile to make
+				int randomTileValue = Random.Range(1, 6);
+
+				//The gameObject that will be filled with a randomly selected type of tile
+				GameObject floorClone;
+
+				//Creates a new floor tile
+				if (randomTileValue == 1
+				    || randomTileValue == 2) {
+				
+					floorClone = (GameObject)Instantiate (normalFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
 
 					//Gives it a groovy color
-					floorClone.GetComponent<MeshRenderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
+					//floorClone.GetComponent<MeshRenderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
 
-					//Moves the pathmaker sphere forward
-					transform.Translate (transform.forward * 5f);
+				} else if (randomTileValue == 3) {
 
-					//Updates the number of tiles currently in the given hall
-					tilesCurrentlyInHall++;
+					floorClone = (GameObject)Instantiate (heartFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
+				
+					//Gives it a groovy color
+					//floorClone.GetComponent<MeshRenderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
 
-					counter++;
-					Debug.Log (counter);
+				}  else if (randomTileValue == 4) {
+
+					floorClone = (GameObject)Instantiate (arrowFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
+				
+					//Gives it a groovy color
+					//floorClone.GetComponent<MeshRenderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
+				
+				} else if (randomTileValue == 5) {
+				
+					floorClone = (GameObject)Instantiate (ladybugFloorPrefab, transform.position, Quaternion.Euler (0f, 0f, 0f));
+
+					//Gives it a groovy color
+				//	floorClone.GetComponent<MeshRenderer> ().material.color = new Color (pathColor.x, pathColor.y, pathColor.z, 1);
+			}
+
+				//Moves the pathmaker sphere forward
+				transform.Translate (transform.forward * 5f);
+
+				//Updates the number of tiles currently in the given hall
+				tilesCurrentlyInHall++;
+
+				counter++;
+				Debug.Log (counter);
 			}
 
 		//Tells the pathmaker sphere to self-destruct, ensuring that it doesn't create any more paths
